@@ -5,4 +5,5 @@ jobs:
     runs-on: codebuild-gh-actions-runner-${{ github.run_id }}-${{ github.run_attempt }}-ubuntu-7.0-large
     steps:
       - run: echo '${{ toJSON(github) }}'
+      - run: echo $CUSTOM_SECRET
       - run: printenv

@@ -2,7 +2,7 @@ name: Hello World
 on: [push]
 jobs:
   Hello-World-Job:
-    runs-on: codebuild-gh-actions-runner-lambda-${{ github.run_id }}-${{ github.run_attempt }}-ubuntu-7.0-large
+    runs-on: codebuild-gh-actions-runner-lambda-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - run: echo '${{ toJSON(github) }}'
       - run: echo $CUSTOM_SECRET

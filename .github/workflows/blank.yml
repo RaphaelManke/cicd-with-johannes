@@ -6,4 +6,6 @@ jobs:
     steps:
       - run: echo '${{ toJSON(github) }}'
       - run: echo $CUSTOM_SECRET
+      - run: echo "::add-mask::$CUSTOM_SECRET"
+      - run: echo $CUSTOM_SECRET
       - run: printenv

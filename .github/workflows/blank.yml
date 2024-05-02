@@ -8,6 +8,8 @@ jobs:
       - run: echo $CUSTOM_SECRET
       - run: echo "::add-mask::$CUSTOM_SECRET"
       - run: echo $CUSTOM_SECRET
+      - run: npm install && npm cdk synth
+        working-directory: "cdk-app"
       - run: aws sts get-caller-identity
       # - run: curl $AWS_CONTAINER_CREDENTIALS_FULL_URI
       - run: echo ${{ secrets.CUSTOM_GITHUB_SECRET }}

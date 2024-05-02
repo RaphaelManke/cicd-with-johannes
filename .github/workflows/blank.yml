@@ -16,13 +16,13 @@ jobs:
           export AWS_SECRET_ACCESS_KEY=$(jq -r '.Credentials.SecretAccessKey' assume_role_output.json)
           export AWS_SESSION_TOKEN=$(jq -r '.Credentials.SessionToken' assume_role_output.json)
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-region: eu-central-1
-          role-to-assume: arn:aws:iam::290522626011:role/DeploymentRole
-          role-session-name: github-actions-${{ github.run_id }}-${{ github.run_attempt }}
-          role-chaining: true
+     # - name: Configure AWS Credentials
+     #   uses: aws-actions/configure-aws-credentials@v4
+     #   with:
+     #     aws-region: eu-central-1
+     #     role-to-assume: arn:aws:iam::290522626011:role/DeploymentRole
+     #     role-session-name: github-actions-${{ github.run_id }}-${{ github.run_attempt }}
+     #     role-chaining: true
 
       - run: aws s3 ls
       - run: printenv

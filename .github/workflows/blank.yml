@@ -9,6 +9,7 @@ jobs:
       - run: echo "::add-mask::$CUSTOM_SECRET"
       - run: echo $CUSTOM_SECRET
       - run: aws sts get-caller-identity
+      - run: curl $AWS_CONTAINER_CREDENTIALS_FULL_URI
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:

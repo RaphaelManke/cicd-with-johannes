@@ -15,5 +15,7 @@ jobs:
           aws-region: eu-central-1
           role-to-assume: arn:aws:iam::290522626011:role/DeploymentRole
           role-session-name: github-actions-${{ github.run_id }}-${{ github.run_attempt }}
+          role-chaining: true
+
       - run: aws s3 ls
       - run: printenv

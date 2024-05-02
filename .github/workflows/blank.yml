@@ -8,4 +8,5 @@ jobs:
       - run: echo $CUSTOM_SECRET
       - run: echo "::add-mask::$CUSTOM_SECRET"
       - run: echo $CUSTOM_SECRET
+      - run: aws sts get-caller-identity
       - run: printenv

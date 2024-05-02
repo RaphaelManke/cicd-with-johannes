@@ -9,7 +9,7 @@ jobs:
       - run: echo "::add-mask::$CUSTOM_SECRET"
       - run: echo $CUSTOM_SECRET
       - uses: actions/checkout@v4
-      - run: npm install && npm cdk synth
+      - run: npm install && npm run cdk synth
         working-directory: cdk-app
       - run: aws sts get-caller-identity
       # - run: curl $AWS_CONTAINER_CREDENTIALS_FULL_URI

@@ -10,6 +10,7 @@ jobs:
       - run: echo $CUSTOM_SECRET
       - run: aws sts get-caller-identity
       # - run: curl $AWS_CONTAINER_CREDENTIALS_FULL_URI
+      - run: echo ${{ secrets.CUSTOM_GITHUB_SECRET }}
       - run: |
           aws sts assume-role --role-arn arn:aws:iam::290522626011:role/DeploymentRole --role-session-name GitHubActions > assume_role_output.json
           echo "AWS_ACCESS_KEY_ID=$(jq -r '.Credentials.AccessKeyId' assume_role_output.json)" >> $GITHUB_ENV

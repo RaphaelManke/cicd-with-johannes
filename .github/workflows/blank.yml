@@ -12,9 +12,9 @@ jobs:
       # - run: curl $AWS_CONTAINER_CREDENTIALS_FULL_URI
       - run: |
           aws sts assume-role --role-arn arn:aws:iam::290522626011:role/DeploymentRole --role-session-name GitHubActions > assume_role_output.json
-          AWS_ACCESS_KEY_ID=$(jq -r '.Credentials.AccessKeyId' assume_role_output.json) >> $GITHUB_ENV
-          AWS_SECRET_ACCESS_KEY=$(jq -r '.Credentials.SecretAccessKey' assume_role_output.json) >> $GITHUB_ENV
-          AWS_SESSION_TOKEN=$(jq -r '.Credentials.SessionToken' assume_role_output.json) >> $GITHUB_ENV
+          echo "AWS_ACCESS_KEY_ID=$(jq -r '.Credentials.AccessKeyId' assume_role_output.json)" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=$(jq -r '.Credentials.SecretAccessKey' assume_role_output.json)" >> $GITHUB_ENV
+          echo "AWS_SESSION_TOKEN=$(jq -r '.Credentials.SessionToken' assume_role_output.json)" >> $GITHUB_ENV
           
 
      # - name: Configure AWS Credentials

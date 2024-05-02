@@ -15,15 +15,27 @@ jobs:
           echo "AWS_ACCESS_KEY_ID=$(jq -r '.Credentials.AccessKeyId' assume_role_output.json)" >> $GITHUB_ENV
           echo "AWS_SECRET_ACCESS_KEY=$(jq -r '.Credentials.SecretAccessKey' assume_role_output.json)" >> $GITHUB_ENV
           echo "AWS_SESSION_TOKEN=$(jq -r '.Credentials.SessionToken' assume_role_output.json)" >> $GITHUB_ENV
+      - run: |
+          # Fetch credentials from the AWS_CONTAINER_CREDENTIALS_FULL_URI
+          credentials=$(curl -s $AWS_CONTAINER_CREDENTIALS_FULL_URI)
           
+          # Extract the access key ID, secret access key, and session token
+          access_key_id=$(echo $credentials | jq -r '.AccessKeyId')
+          secret_access_key=$(echo $credentials | jq -r '.SecretAccessKey')
+          session_token=$(echo $credentials | jq -r '.Token')
+          
+          # Export the credentials as environment variables
+          echo "AWS_ACCESS_KEY_ID=$access_key_id" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=$secret_access_key" >> $GITHUB_ENV
+          echo "AWS_SESSION_TOKEN=$session_token" >> $GITHUB_ENV
 
-     # - name: Configure AWS Credentials
-     #   uses: aws-actions/configure-aws-credentials@v4
-     #   with:
-     #     aws-region: eu-central-1
-     #     role-to-assume: arn:aws:iam::290522626011:role/DeploymentRole
-     #     role-session-name: github-actions-${{ github.run_id }}-${{ github.run_attempt }}
-     #     role-chaining: true
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: eu-central-1
+          role-to-assume: arn:aws:iam::290522626011:role/DeploymentRole
+          role-session-name: github-actions-${{ github.run_id }}-${{ github.run_attempt }}
+          role-chaining: true
       - run: echo ${{ env.AWS_ACCESS_KEY_ID }}
       - run: printenv
       - run: aws s3 ls
